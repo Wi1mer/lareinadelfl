@@ -1,0 +1,330 @@
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  
+<script>
+jQuery(document).ready(function () {
+$(".oculto").hide();
+$(".profile-menu-link").click(function () {
+var nodo = $(this).attr("href");
+
+if ($(nodo).is(":visible")) {
+$(nodo).hide();
+return false;
+} else {
+$(".oculto").hide("slow");
+$(nodo).fadeToggle("fast");
+return false;
+}
+});
+});
+//# sourceURL=pen.js
+</script>
+
+<!--ocultamuetras-->
+<script>
+    $(document).ready(function(){
+        $("#botonocultamuestra").click(function(){
+           $("#divocultamuestra").each(function() {
+             displaying = $(this).css("display");
+             if(displaying == "block") {
+               $(this).fadeOut('slow',function() {
+                $(this).css("display","none");
+               });
+             } else {
+               $(this).fadeIn('slow',function() {
+                 $(this).css("display","block");
+               });
+             }
+           });
+         });
+       });
+</script>
+
+<!--Recargar la paguina-->
+<script type="text/javascript">
+  //Función actualizar
+function actualizar(){location.reload(true);}
+//Función para actualizar cada 5 segundos(5000 milisegundos)
+setInterval("actualizar()",600000);
+</script>
+
+
+<!--Contador-odometer-->
+<script src="js/odometer.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+  /* Demo purposes only */
+  $(".hover").mouseleave(
+    function () {
+      $(this).removeClass("hover");
+    });
+//# sourceURL=pen.js
+</script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+<script src="https://unpkg.com/plyr@3"></script>
+
+<script>
+  // Change the second argument to your options:
+  // https://github.com/sampotts/plyr/#options
+  const players = Plyr.setup('video', { captions: { active: true } });
+
+  // Expose player so it can be used from the console
+  window.players = players;
+//# sourceURL=pen.js
+</script>
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js"></script>
+<script>
+var slideWrapper = $(".main-slider"),
+iframes = slideWrapper.find('.embed-player'),
+lazyImages = slideWrapper.find('.slide-image'),
+lazyCounter = 0;
+
+// POST commands to YouTube or Vimeo API
+function postMessageToPlayer(player, command){
+if (player == null || command == null) return;
+player.contentWindow.postMessage(JSON.stringify(command), "*");
+}
+
+// When the slide is changing
+function playPauseVideo(slick, control){
+var currentSlide, slideType, startTime, player, video;
+
+currentSlide = slick.find(".slick-current");
+slideType = currentSlide.attr("class").split(" ")[1];
+player = currentSlide.find("iframe").get(0);
+startTime = currentSlide.data("video-start");
+
+if (slideType === "vimeo") {
+switch (control) {
+case "play":
+  if ((startTime != null && startTime > 0 ) && !currentSlide.hasClass('started')) {
+  currentSlide.addClass('started');
+  postMessageToPlayer(player, {
+    "method": "setCurrentTime",
+    "value" : startTime
+  });
+  }
+  postMessageToPlayer(player, {
+  "method": "play",
+  "value" : 1
+  });
+  break;
+case "pause":
+  postMessageToPlayer(player, {
+  "method": "pause",
+  "value": 1
+  });
+  break;
+}
+} else if (slideType === "youtube") {
+switch (control) {
+case "pause":// "play":
+  postMessageToPlayer(player, {
+  "event": "command"//,
+  //"func": "mute"
+  });
+  postMessageToPlayer(player, {
+  "event": "command",
+  "func": "playVideo"
+  });
+  break;
+case "pause":
+  postMessageToPlayer(player, {
+  "event": "command",
+  "func": "pauseVideo"
+  });
+  break;
+}
+} else if (slideType === "video") {
+video = currentSlide.children("video").get(0);
+if (video != null) {
+if (control === "play"){
+  video.play();
+} else {
+  video.pause();
+}
+}
+}
+}
+
+
+// DOM Ready
+$(function() {
+// Initialize
+slideWrapper.on("init", function(slick){
+slick = $(slick.currentTarget);
+setTimeout(function(){
+playPauseVideo(slick,"play");
+}, 1000);
+resizePlayer(iframes, 16/9);
+});
+slideWrapper.on("beforeChange", function(event, slick) {
+slick = $(slick.$slider);
+playPauseVideo(slick,"pause");
+});
+slideWrapper.on("afterChange", function(event, slick) {
+slick = $(slick.$slider);
+playPauseVideo(slick,"play");
+});
+slideWrapper.on("lazyLoaded", function(event, slick, image, imageSource) {
+lazyCounter++;
+if (lazyCounter === lazyImages.length){
+lazyImages.addClass('show');
+// slideWrapper.slick("slickPlay");
+}
+});
+
+//start the slider
+slideWrapper.slick({
+// fade:true,
+autoplaySpeed:4000,
+lazyLoad:"progressive",
+speed:600,
+arrows:false,
+dots:true,
+cssEase:"cubic-bezier(0.87, 0.03, 0.41, 0.9)"
+});
+});
+
+// Resize event
+$(window).on("resize.slickVideoPlayer", function(){  
+resizePlayer(iframes, 16/9);
+});
+</script>
+
+
+
+<!-- menu-responsive -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
+<script>
+  // ---------Responsive-navbar-active-animation-----------
+  function test() {
+    var tabsNewAnim = $('#navbarSupportedContent');
+    var selectorNewAnim = $('#navbarSupportedContent').find('li').length;
+    var activeItemNewAnim = tabsNewAnim.find('.active');
+    var activeWidthNewAnimHeight = activeItemNewAnim.innerHeight();
+    var activeWidthNewAnimWidth = activeItemNewAnim.innerWidth();
+    var itemPosNewAnimTop = activeItemNewAnim.position();
+    var itemPosNewAnimLeft = activeItemNewAnim.position();
+    $(".hori-selector").css({
+      "top": itemPosNewAnimTop.top + "px",
+      "left": itemPosNewAnimLeft.left + "px",
+      "height": activeWidthNewAnimHeight + "px",
+      "width": activeWidthNewAnimWidth + "px"
+    });
+
+    $("#navbarSupportedContent").on("click", "li", function (e) {
+      $('#navbarSupportedContent ul li').removeClass("active");
+      $(this).addClass('active');
+      var activeWidthNewAnimHeight = $(this).innerHeight();
+      var activeWidthNewAnimWidth = $(this).innerWidth();
+      var itemPosNewAnimTop = $(this).position();
+      var itemPosNewAnimLeft = $(this).position();
+      $(".hori-selector").css({
+        "top": itemPosNewAnimTop.top + "px",
+        "left": itemPosNewAnimLeft.left + "px",
+        "height": activeWidthNewAnimHeight + "px",
+        "width": activeWidthNewAnimWidth + "px"
+      });
+
+    });
+  }
+  $(document).ready(function () {
+    setTimeout(function () { test(); });
+  });
+  $(window).on('resize', function () {
+    setTimeout(function () { test(); }, 500);
+  });
+  $(".navbar-toggler").click(function () {
+    setTimeout(function () { test(); });
+  });
+  //# sourceURL=pen.js
+</script>
+
+
+
+<!-- hora actual -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.min.js"></script>
+<script>
+  var myhour, myminute, mysecond;
+  
+  function flipNumber(el, newnumber) {
+    var thistop = el.find(".top").clone();
+    var thisbottom = el.find(".bottom").clone();
+    thistop.addClass("new");
+    thisbottom.addClass("new");
+    thisbottom.find(".text").text(newnumber);
+    el.find(".top").after(thistop);
+    el.find(".top.new").append(thisbottom);
+    el.addClass("flipping");
+    el.find(".top:not(.new)").find(".text").text(newnumber);
+    setTimeout(function () {
+    el.find(".bottom:not(.new)").find(".text").text(newnumber);
+    }, 500);
+  }
+  function setTime() {
+    $(".flipper").removeClass("flipping");
+    $(".flipper .new").remove();
+    var date = new Date();
+    var seconds = date.getSeconds().toString();
+    if (seconds.length == 1) {
+    seconds = "0" + seconds;
+    }
+    var minutes = date.getMinutes().toString();
+    if (minutes.length == 1) {
+    minutes = "0" + minutes;
+    }
+    var hlocal = date.getHours();
+    var varx = hlocal + mhora + 2 -12;//Chancullohora
+    document.getElementsByClassName("resultado1")[0].innerHTML = "En tu pais empezara a las ->  "+varx+":00  y se subira a las ->  "+(varx+1)+":00";//Chancullohora
+    var hour = hlocal;//Chancullohora
+    if (hour > 12) {
+    hour = hour - 12;
+    }
+    if (hour == 0) {
+    hour = 12;
+    }
+    hour = hour;
+    hour = hour.toString();
+    if (hour.length == 1) {
+    hour = "0" + hour;
+    }
+    if ($(myhour[0]).text() !== hour) {
+    flipNumber($(myhour[0]).closest(".flipper"), hour);
+    }
+    if ($(myminute[0]).text() !== minutes) {
+    flipNumber($(myminute[0]).closest(".flipper"), minutes);
+    }
+    if ($(mysecond[0]).text() !== seconds) {
+    flipNumber($(mysecond[0]).closest(".flipper"), seconds);
+    }
+    setTimeout(function () {
+    setTime();
+    }, 500);
+  }
+  
+  $(function () {
+    myhour = $(".clock .flipper:nth-child(1) div:not(.new) .text");
+    myminute = $(".clock .flipper:nth-child(2) div:not(.new) .text");
+    mysecond = $(".clock .flipper:nth-child(3) div:not(.new) .text");
+    setTime();
+  });
+  //# sourceURL=pen.js
+    </script>
+
+    <!-- z -->
